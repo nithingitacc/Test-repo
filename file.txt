@@ -1,4 +1,4 @@
-Making changes in Github & commiting from online
+Making changes in Github & commiting from online for git fetch
 Hi Friends 
 Welcome to Git Hub
 Thank yo
