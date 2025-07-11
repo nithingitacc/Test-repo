@@ -1,0 +1,1353 @@
+/* REC VIA CODE GEN
+import { test, expect } from '@playwright/test';
+
+test('test', async ({ page }) => {
+  await page.goto('https://www.amazon.in/');
+  await page.getByRole('searchbox', { name: 'Search Amazon.in' }).click();
+  await page.getByRole('searchbox', { name: 'Search Amazon.in' }).fill('laptop');
+  await page.getByRole('button', { name: 'Go', exact: true }).click();
+  await page.getByRole('link', { name: 'Apple MacBook Air Laptop:' }).first().click();
+  await page.goto('https://www.amazon.in/Apple-MacBook-Chip-13-inch-256GB/dp/B08N5W4NNB/ref=sr_1_5?crid=PY798S57M864&dib=eyJ2IjoiMSJ9._PPbQMG2D9p2Q3UKMOt4ZFV8OCC53AwdwSCsTjB_OXPoDJ0j_4mVaRUE4lneCIr5_EN8mr8SNjQR_q4G-M_95w0tblR9_I-GCFT7YknN_SSgMLwlgg5IQ4ttlQHlgdVAJN80QuWCyB_f06D4SbGObGLPnWkXHlfyZ4dHR638D1qxqsSLwqbB6FdHz3b3Y1xCkfEnmkLu-kuBLUuhw2kAGOdjGx9zuG7gArw8N-2i-CY.W15i2zgN2v-ncTrvzdozQ2zrGVeElJ84XstqR5oVlYU&dib_tag=se&keywords=laptop&qid=1750150045&sprefix=laptop%2Caps%2C246&sr=8-5&th=1');
+});
+
+
+
+/*List of commands in code gen:
+npx playwright codegen https://www.amazon.in/
+npx playwright codegen https://www.amazon.in --viewport-size="800,600"
+npx playwright codegen https://www.amazon.in/ --device="iPhone 12"
+
+npx playwright codegen https://www.amazon.in/ --output=demo007.spec.ts
+or
+npx playwright codegen https://www.amazon.in/ --output=tests-example/demo007.spec.ts
+
+*/
+
+
+
+// Manually code for Launching Url 
+/*
+import {test,expect} from '@playwright/test'
+test('Launch Browser',async({page})=>
+{
+
+await page.goto("https://www.google.com")
+
+
+/*assertion for Url using a method toContain 
+await expect(page.url()).toContain('goo') */
+
+/*assertion for Url using a method tohaveUrl 
+(recomended due to smart weight)*/
+//await expect(page).toHaveURL(/.*google\.com.*/) 
+
+
+/*assertion using a variable
+//const titleName=await page.title()
+//console.log(titleName)
+//await expect(titleName).toBe("Google")
+*/
+
+//}
+//)
+
+
+
+/*
+List of commands with different Options to Run test script
+
+Execute script
+npx playwright test finalPractise.ts
+
+To execute in Headed mode 
+npx playwright test finalPractise.ts --headed
+
+To execute script in chrome browser
+npx playwright test finalPractise.ts --project=chromium
+
+To execute script in firefox browser headed mode
+npx playwright test finalPractise.ts --headed --project=firefox 
+*/
+
+/*Test case 1:
+Handle Input/Text Box */
+/*
+import {test,expect} from '@playwright/test'
+
+test ('Text box handling via variables declaration',async({page})=>
+{
+const url= ('https://www.tutorialspoint.com/selenium/practice/text-box.php')
+const fullName=page.getByRole('textbox', { name: 'Full Name :' })
+const email=page.getByRole('textbox', { name: 'Email :' })
+const address=page.getByRole('textbox', { name: 'Current Address :' })
+const password=page.getByRole('textbox', { name: 'Password' })
+
+await page.goto (url)
+await page.getByRole('link', { name: 'Text Box' }).click()
+await expect(page.getByRole('heading', { name: 'Text Box' })).toHaveText("Text Box")
+
+await fullName.fill("Nithin")
+await email.fill("Test@gmail.com")
+await address.fill("#162, 5th Main, 6th cross,7th phase")
+await password.fill("Test@123")
+await page.getByRole('button', { name: 'Submit' }).click()
+}) 
+*/
+
+//Test case 2:
+//Handle Radio Button 
+/*
+import {test,expect,Page} from '@playwright/test'
+test.only('Handling Radio Button',async({page})=>{
+
+  const yesRadioBtn=page.getByRole('radio').first()
+  const impressiveRadioBtn=page.getByRole('radio').nth(1)
+
+  //const noRadioBtn=page.locator('form div').filter({ hasText: 'No (Disable)' })
+  
+  //The above locator also given by playwright has div tag reference which is 
+  // not accurate for Interactive actions like click/check,un-click/un-check, 
+  // select,de-select, better to use alternate locator rather than div
+  // tag based locator as used below.
+  const url=("https://www.tutorialspoint.com/selenium/practice/radio-button.php")
+  const noRadioBtn=page.locator("input[name='inlineRadioOptions']")
+
+  const yesOptionText=page.getByText('You have checked Yes')
+  const impressiveOptionText=page.getByText('You have checked Impressive')
+
+
+  await page.goto(url)
+  await expect(page.getByRole('heading', { name: 'Radio Button' })).toHaveText("Radio Button")
+
+  await expect(yesRadioBtn).not.toBeChecked()
+  await expect(impressiveRadioBtn).not.toBeChecked()
+  await expect(noRadioBtn).toBeDisabled() 
+
+  await yesRadioBtn.check()
+  await expect(yesRadioBtn).toBeChecked()
+  await expect(yesOptionText).toHaveText("You have checked Yes")
+  
+  await impressiveRadioBtn.check()
+  await expect(impressiveRadioBtn).toBeChecked()
+  await expect(impressiveOptionText).toHaveText("You have checked Impressive")
+
+  
+})
+*/
+
+
+//Test case 3:
+//Handle Check Box 
+/*
+import {test,expect,Page} from '@playwright/test'
+test ('Handle Check Boxes',async ({page})=>
+{
+  const url=("https://www.tutorialspoint.com/selenium/practice/check-box.php")
+  const mainLevel1checkbox=page.locator('#c_bs_1')
+  //or 
+  //const mainLevelExpand=page.locator("#bs_1 .plus").first()
+  const subLevel1checkbox=page.locator('#c_bf_1')
+  const subLevel2checkbox=page.locator('#c_bf_2')
+
+ await page.goto(url)
+ await expect(page.getByRole('heading', { name: 'Check Box' })).toHaveText("Check Box")
+ //await expect(mainLevel1checkbox).not.toBeChecked()
+
+ //await page.waitForTimeout(1000)
+ await page.locator('.plus').first().click()
+ await expect(subLevel1checkbox).not.toBeChecked()
+ await expect(subLevel2checkbox).not.toBeChecked()
+ 
+ await mainLevel1checkbox.check()
+ expect(subLevel1checkbox).toBeChecked()
+ expect(subLevel2checkbox).toBeChecked()
+ //await page.waitForTimeout(3000)
+
+ await subLevel1checkbox.uncheck()
+ expect(mainLevel1checkbox).not.toBeChecked()
+ expect(subLevel2checkbox).toBeChecked()
+})
+*/
+
+/*
+import {test,expect,Page} from '@playwright/test'
+
+//TC Name & starting of async function
+test('Handling Amazon Check Box', async({page})=>
+{
+
+//variable declaration which are used with diff methods  
+const url=("https://www.amazon.in/")
+const searchItem=page.locator("#twotabsearchtextbox")
+const searchButton=page.locator("#nav-search-submit-button")
+const hardCoverSelectionCheckBox=page.getByRole('link', { name: 'Apply the filter Hardcover to' })
+const hardCoverresultlist=page.locator('.a-size-base:has-text("Hardcover")')
+
+//login to target url & fill with desired text(book) to be searched & click Go
+await page.goto(url)
+await searchItem.fill('book')
+await searchButton.click()
+
+//Time for page to load for book due to several thousands of results loading
+await page.waitForSelector('h2.a-size-base span.a-text-bold')
+
+//validate "book" text is displayed after clicking search button using Reg Exp
+await expect(page.locator('h2.a-size-base span.a-text-bold')).toContainText(/book/i)
+
+//select Hard cover checkbox
+await hardCoverSelectionCheckBox.click()
+
+//code to keep the select result loaded to view -optional Hard weight
+await page.waitForTimeout(9000)
+
+//store the list of locator elements in a variable (hardCoverCollection) using .all() method 
+const hardCoverCollection=await hardCoverresultlist.all()
+
+//Iterate hardCoverOccurence using toConatainText()
+// in hardCoverCollection Locator variable
+// using "For ..off" loop
+for (const hardCoverOccurence of hardCoverCollection)
+{
+  await expect(hardCoverOccurence).toContainText("Hardcover")
+}
+
+})
+*/
+
+//Test case 4:
+//Handle Drop down (when <select> tag is used for the d/d element) */ 
+
+//1.syntax: await dropdown.selectOption("text from value attribute")
+/*
+import {test,expect,Page} from '@playwright/test'
+test('Drop down by selecting value',async({page})=>
+{
+const url=('https://www.amazon.in')
+const dropdown=page.locator('#searchDropdownBox')
+await page.goto(url)
+await dropdown.selectOption("search-alias=fashion")
+//await page.waitForTimeout(3000)
+})
+*/
+//2.Syntax: await dropdown.selectOption({label:"text from label attribute/visible text in UI dropdown"})
+/*
+import {test,expect,Page} from '@playwright/test'
+import { url } from 'inspector'
+test('Drop down by selecting label/visible Text',async({page})=>
+{
+const url=('https://www.amazon.in')
+const dropdown=page.locator('#searchDropdownBox')
+await page.goto(url)
+await dropdown.selectOption({label:"Amazon Devices"})
+})
+*/
+//3.syntax: await dropdown.selectOption({index:number})
+/*
+import {test,expect,Page} from '@playwright/test'
+test.only('Drop down by selecting index',async({page})=>
+{
+const url=('https://www.amazon.in')
+const dropdown=page.locator('#searchDropdownBox')
+await page.goto(url)
+await dropdown.selectOption({index:3})
+})
+*/
+
+//4.To choose selected Item(s) from dropdown we can use .inputValue()
+/*
+import {test,expect,Page} from '@playwright/test'
+test('choose selected item from dropdown via .inputValue() ',async({page})=>
+{
+const url=('https://www.amazon.in')
+const dropdown=page.locator('#searchDropdownBox')
+await page.goto(url)
+await page.selectOption("#searchDropdownBox",{label:'Amazon Devices'})
+
+//.inputValue() will give value(s) selected in dropdown
+//and will be stored inside a variable (dropDownSelectedValue)
+//& compared using .toBe() in assertion method
+//.toBe() should be provided value of attribute for inputValue()
+
+const dropDownSelectedValue=await page.locator("#searchDropdownBox").inputValue()
+expect(dropDownSelectedValue).toBe("search-alias=amazon-devices")
+//await page.waitForTimeout(5000)
+})
+*/
+// //Alternatively,
+//5.To choose selected Item(s) from dropdown we can use .textContent()
+/*
+import {test,expect,Page} from '@playwright/test'
+test('choose selected item from dropdown via .textContent() ',async({page})=>
+{
+const url=('https://www.amazon.in')
+const dropdown=page.locator('#searchDropdownBox')
+
+await page.goto(url)
+await page.selectOption("#searchDropdownBox",{label:'Amazon Devices'})
+
+//.textContent() will give value(s) selected in dropdown
+//and will be stored inside a variable (dropDownSelectedValue)
+//& compared using .toBe()  in assertion method
+//.toBe() should be provided value of visible text from dropdown for textContent()
+
+const dropDownSelectedValue=await page.locator("#searchDropdownBox").inputValue()
+expect(dropDownSelectedValue).toBe("search-alias=amazon-devices")
+//await page.waitForTimeout(5000)
+})
+*/
+
+//6.Assertion for Default value selected in drop down on Load
+/*
+import {test,expect,Page} from '@playwright/test'
+test.only('Default value selected in dropdown',async({page})=>
+{
+const url=('https://www.amazon.in')
+const dropdown=page.locator('#searchDropdownBox')
+await page.goto(url)
+const defaultdropDownSelectedValue=await page.locator("#searchDropdownBox option:checked").textContent()
+expect(defaultdropDownSelectedValue).toBe("All Categories")
+
+//await page.waitForTimeout(5000)
+})
+*/
+
+//7.code to get  no of Items in drop down
+/*
+import {test,expect,Page} from '@playwright/test'
+test.only('Default value selected in dropdown',async({page})=>
+{
+const url=('https://www.amazon.in')
+const dropdown=page.locator('#searchDropdownBox')
+await page.goto(url)
+await page.waitForTimeout(5000)
+
+const countOfElements=await page.locator("#searchDropdownBox option").count()
+console.log(countOfElements)
+
+// //await page.waitForTimeout(5000)
+})
+*/
+//8.Assertion for no of Items in drop down
+/*
+import {test,expect,Page} from '@playwright/test'
+test('No of items in dropdown',async({page})=>
+{
+const url=('https://www.amazon.in')
+const dropdown=page.locator('#searchDropdownBox')
+await page.goto(url)
+await page.waitForTimeout(5000)
+
+const countOfElements=await page.locator("#searchDropdownBox option").count()
+console.log(countOfElements)
+expect(countOfElements).toBe(45)
+
+})
+*/
+//9.To Handle custom dropdown (when <select> tag is not used for d/d element)
+/*
+import {test,expect,Page} from '@playwright/test'
+import { TIMEOUT } from 'dns'
+
+test('Handle custom dropdown',async({page})=>{
+const url=('http://opensource-demo.orangehrmlive.com/web/index.php/auth/login')
+const username=page.getByPlaceholder('Username')
+const password=page.getByPlaceholder('Password')
+const loginBtn=page.locator('button[type="submit"]')
+const dashBoard=page.locator('h6.oxd-text')
+const dropdown1=page.locator('span.oxd-userdropdown-tab')
+const support=page.locator('a[role="menuitem"]',{hasText:'support'})
+const customerSupport=page.locator('p.orangehrm-sub-title').last()
+const leave=page.locator('.oxd-main-menu-item--name',{hasText:'Leave'})
+const leaveList=page.locator('h5.oxd-table-filter-title')
+const showLeaveStatus=page.locator('.oxd-multiselect-wrapper .oxd-select-text')
+const cancelled=page.locator('.oxd-select-option',{hasText:'Cancelled'})
+const rejected=page.locator('.oxd-select-option',{hasText:'Rejected'})
+const leaveSelectedValues=page.locator('.oxd-chip.oxd-chip--default.oxd-multiselect-chips-selected',{hasText:'Cancelled'})
+
+await page.goto(url)
+
+await username.fill('Admin')
+await password.fill('admin123')
+await loginBtn.click()
+await expect(dashBoard).toBeVisible()
+await page.waitForTimeout(1000)
+await dropdown1.click()
+await support.click()
+await expect (customerSupport).toHaveText('Customer Support')
+await leave.click()
+//await expect(leaveList).toHaveText('Leave List')
+//await page.waitForTimeout(2000) 
+await showLeaveStatus.click()
+await cancelled.click()
+
+//Paste this command in Console Tab next to Elements tab in dev tools option
+//setTimeout(()=>{debugger;},2000)
+
+await expect(leaveSelectedValues).toBeVisible()
+})
+*/
+//10.To Handle Searchable/Auto suggn dropdown
+
+//to display auto suggn dropdown
+/*
+ import {test,expect,Page} from '@playwright/test'
+
+ test('Handle Searchable/Auto suggn dropdown',async({page})=>{
+ const url=('https://www.amazon.in')
+ const searchBox=page.locator('input#twotabsearchtextbox')
+ const searchAutoSugg=page.locator('.left-pane-results-container')
+
+ await page.goto(url)
+ await searchBox.fill('book')
+ //code to wait for the selector in search result to be displayed 
+ //await page.waitForSelector('locator')
+ await page.waitForSelector('.left-pane-results-container')
+ await expect(searchAutoSugg).toBeVisible()  
+ await page.waitForTimeout(5000)
+})
+*/
+
+//To take count of locators in Autosuggn
+ /*
+  import {test,expect,Page} from '@playwright/test'
+  test('Handle Searchable/Auto suggn dropdown',async({page})=>{
+  const url=('https://www.amazon.in')
+  const searchBox=page.locator('input#twotabsearchtextbox')
+  const searchAutoSugg=page.locator('.left-pane-results-container')
+  const contentsOfAutoSuggResult=page.locator('[id*="sac-suggestion-row"]') 
+ 
+  //If the element has similar Id like a-1,a-2,a-3 then 
+  //we have to use the locator as, page.locator('[id*="locator"]') 
+  await page.goto(url)
+  await searchBox.fill('book')
+  //code to wait for the selector in search result to be displayed 
+  //await page.waitForSelector('locator')
+  await page.waitForSelector('.left-pane-results-container')
+  await expect(searchAutoSugg).toBeVisible()  
+  
+  const countOfContentsOfAutoSuggResult=await contentsOfAutoSuggResult.count()
+  //Here count() should be called after goto only ,else count will return 0
+  //and  await is added in RHS since .count() is async method
+  console.log(countOfContentsOfAutoSuggResult)
+
+  await expect(contentsOfAutoSuggResult).toHaveCount(20)
+  await page.waitForTimeout(5000)  
+})
+*/
+
+//To print contents of Auto suggestions
+/*
+  import {test,expect,Page} from '@playwright/test'
+  test('Handle Searchable/Auto suggn dropdown',async({page})=>{
+  const url=('https://www.amazon.in')
+  const searchBox=page.locator('input#twotabsearchtextbox')
+  const searchAutoSugg=page.locator('.left-pane-results-container')
+  const contentsOfAutoSuggResult=page.locator('[id*="sac-suggestion-row"]') 
+
+  await page.goto(url)
+  await searchBox.fill('book')
+  //code to wait for the selector in search result to be displayed 
+  //await page.waitForSelector('locator')
+  await page.waitForSelector('.left-pane-results-container')
+  await expect(searchAutoSugg).toBeVisible()  
+
+  const showContentsOfAutoSuggResult=await contentsOfAutoSuggResult.allTextContents()
+  console.log(showContentsOfAutoSuggResult)
+  })
+*/
+
+//to check whether specific option is present in the Auto suggestion list
+//without using loop concept & using hasText locator filter option
+/*
+  import {test,expect,Page} from '@playwright/test'
+  test('Handle Searchable/Auto suggn dropdown',async({page})=>{
+  const url=('https://www.amazon.in')
+  const searchBox=page.locator('input#twotabsearchtextbox')
+  const searchAutoSugg=page.locator('.left-pane-results-container')
+  const contentsOfAutoSuggResult=page.locator('[id*="sac-suggestion-row"]') 
+
+  await page.goto(url)
+  await searchBox.fill('book')
+  //code to wait for the selector in search result to be displayed 
+  //await page.waitForSelector('locator')
+  await page.waitForSelector('.left-pane-results-container')
+  await expect(searchAutoSugg).toBeVisible()  
+
+  const searchincontentsOfAutoSuggResult =contentsOfAutoSuggResult.filter({hasText:'bookmark'}).first()
+  await expect(searchincontentsOfAutoSuggResult).toBeVisible()
+  searchincontentsOfAutoSuggResult.filter({hasText:'bookmark'}).first().click()
+  await page.waitForTimeout(2000) 
+})
+*/
+
+//to check whether specific option is present in the Auto suggestion list
+//using loop concept.
+/*
+  import {test,expect,Page} from '@playwright/test'
+  test('Handle Searchable/Auto suggn dropdown',async({page})=>{
+  const url=('https://www.amazon.in')
+  const searchBox=page.locator('input#twotabsearchtextbox')
+  const searchAutoSugg=page.locator('.left-pane-results-container')
+  const contentsOfAutoSuggResult=page.locator('[id*="sac-suggestion-row"]') 
+
+  await page.goto(url)
+  await searchBox.fill('book')
+  //code to wait for the selector in search result to be displayed 
+  //await page.waitForSelector('locator')
+  await page.waitForSelector('.left-pane-results-container')
+  await expect(searchAutoSugg).toBeVisible()  
+  
+  const searchIncontentsOfAutoSuggResult=await contentsOfAutoSuggResult.all()
+  for (const optionx of searchIncontentsOfAutoSuggResult)  
+{
+const text= await optionx.textContent()
+if(text && text.includes('book self'))
+{
+  await optionx.click()
+  break
+}
+}
+})
+*/
+
+//11.To Handle Frames 
+  
+//To print the no of Frames.
+/*
+  import {test,expect} from '@playwright/test'
+  test('Handle Frames',async({page})=>{
+  
+  const url=('https://testpages.eviltester.com/styled/frames/frames-test.html')
+  await page.goto(url)
+  const noOfFrames=page.frames()
+  console.log(`The no of frames are:${noOfFrames.length}`)
+  })  
+*/
+
+//using Name,Url,Locator & Index.
+
+//Interact with Frame using name of the Frames.
+/*
+  import {test,expect} from '@playwright/test'
+  test('Handle Frames by Name',async({page})=>{
+  const url=('https://testpages.eviltester.com/styled/frames/frames-test.html')
+  await page.goto(url)
+  const frame1=page.frame({name:'left'})
+ 
+  //frame1.waitForSelector("h1",{state:'visible'})
+if (frame1)
+{
+const frame1Name= await frame1.waitForSelector("h1",{state:'visible'})
+const frame1Text=frame1.locator("h1")
+await expect(frame1Text).toHaveText('Left')
+}
+else
+{
+console.error("The Left Frame is not present on the page")
+}
+
+})
+*/
+
+//Interact with Frame using URL of the Frames.
+/*
+  import {test,expect} from '@playwright/test'
+  test('Handle Frames by URL',async({page})=>{
+  const url=('https://testpages.eviltester.com/styled/frames/frames-test.html')
+  await page.goto(url)
+  const noOfFrames=page.frames()  
+  
+  
+  noOfFrames.forEach(frame=>
+  {
+    console.log(frame.url())
+  }
+  )
+const frame2=page.frame({url:/get-list\?name=Middle&list=40/})
+if(frame2)
+{
+const frame2Name= await frame2.waitForSelector("h1",{state:'visible'})
+const frame2Text=frame2.locator("h1")
+await expect(frame2Text).toHaveText('Middle')
+}
+
+})
+
+*/
+
+//Interact with Frame using index of the Frames.
+/*
+  import {test,expect} from '@playwright/test'
+  test('Handle Frames by index',async({page})=>{
+  const url=('https://testpages.eviltester.com/styled/frames/frames-test.html')
+  await page.goto(url)
+  const noOfFrames=page.frames()  
+  const frame3=noOfFrames[4]
+  await expect(frame3.locator("h1")).toHaveText("Right")
+  noOfFrames.forEach(frame=>
+  {
+    console.log(frame.url())
+  }
+  )
+})
+*/
+
+//12.To Handle Nested Frames Pending
+ /*
+  import {test,expect} from '@playwright/test'
+  test('Handle Nested Frames',async({page})=>{
+  const url=('http://play1.automationcamp.ir/frames.html')
+  const header=page.locator('.navbar-brand.abs')
+
+  await page.goto(url)
+  await expect(header).toHaveText('The Playground')  
+  
+  const parentFrame=page.frameLocator('#frame1')
+  const child1Frame=parentFrame.frameLocator('#frame2')
+  const child1FrameClickAction=child1Frame.locator("#click_me_2")
+  
+  await child1FrameClickAction.click()
+  await page.waitForTimeout(5000)
+  await expect(child1FrameClickAction).toHaveText('Clicked')
+  
+})
+*/
+
+//13.To Handle Web Table
+
+/*Structure of a Web table element
+<Table> -Table tag
+<tr></tr> -Table row
+<td></td> -Table data 
+<thead></thead> -table head
+<tbody></tbody> -table body */
+
+/*
+  import {test,expect} from '@playwright/test'
+  test('Handle Web Table',async({page})=>{
+  const url=('https://letcode.in/table')
+  const table=page.locator('#shopping')  
+   
+  await page.goto(url)
+  await expect(table).toBeVisible()
+
+ //1.Assertion to check & print the no of rows
+  const noOfRows=await page.locator('#shopping tbody tr').count() 
+  expect(noOfRows).toBe(4)  
+  console.log(`the no of rows in the table is: ${noOfRows}`)  
+  
+ //2.Assertion to check & print the no of columns 
+  const noOfColumns=await page.locator('#shopping thead tr th').count()
+  expect(noOfColumns).toBe(2)
+  console.log(`no of columns are:${noOfColumns}`)  
+
+  //3.Assertion to check & print a data/name in the table
+  const itemName=await page.locator('#shopping tbody tr:nth-child(2) td:nth-child(1)').textContent()
+  console.log(`Item Name is :${itemName}`)  
+  expect(itemName).toBe('Apple')
+
+  //4.Assertion to check & print the price of Item Apple
+  const itemPrice=await page.locator('#shopping > tbody > tr:nth-child(2) > td:nth-child(2)').textContent()
+  console.log(`The Price of Item is:${itemPrice}`)
+  expect (itemPrice).toBe('180')
+
+  //5.Assertion to validate the list of column names in a table
+  const columnNames=['Items','Price']
+  const columnTextNames=await page.locator('#shopping thead tr th').allTextContents()
+  console.log(`column names are:${columnTextNames}`)
+  expect(columnTextNames).toEqual(columnNames)
+
+})
+*/
+
+
+//14.To Handle Web Table with single checkbox selection
+/*
+import {test,expect,Page} from '@playwright/test'
+test('Handle Web Table with single checkbox selection',async({page})=>
+{
+  const url=('https://letcode.in/table')
+  const table=page.locator('#simpletable')  
+  const name='Koushik'
+  const row=page.locator('#simpletable tbody tr').filter({hasText:name})
+  
+  await page.goto(url)
+  await expect(table).toBeVisible()
+  
+  const selectPresentOrAbsent=row.locator('input[type="checkbox"]')
+  //Use 'input[type="checkbox"]' instead of #first since 
+  //#first is likely the id of all checkboxes (duplicate ids).
+  await selectPresentOrAbsent.check()
+  await expect(selectPresentOrAbsent).toBeChecked()
+  
+})
+*/
+
+//15.To Handle Web Table with Multiple checkbox selection
+/*
+import {test,expect,Page} from '@playwright/test'
+test('Handle Web Table with Multiple checkbox selection',async({page})=>
+{
+  const url=('https://letcode.in/table')
+  const table=page.locator('#simpletable')  
+  const names=['Koushik','Yashwanth','Iron']
+  
+  await page.goto(url)
+  await expect(table).toBeVisible()
+
+  for (const name of names)
+  {
+  const row=page.locator('#simpletable tbody tr').filter({hasText:name})
+  const selectPresentOrAbsent=row.locator('input[type="checkbox"]')
+  await selectPresentOrAbsent.check()
+  await expect(selectPresentOrAbsent).toBeChecked()
+  }
+  
+})
+*/
+
+//16.To Handle Web Table with sortable option
+/*
+import {test,expect,Page} from '@playwright/test'
+test('Handle Web Table with sortable column',async({page})=>
+{
+  const url=('https://letcode.in/table')
+  const table=page.locator('.mat-sort.table')  
+  
+  await page.goto(url)
+  await expect(table).toBeVisible()
+  
+  const calories=await page.locator('.mat-sort.table tr td:nth-of-type(2)').allTextContents()
+  console.log(calories)
+
+  const isSorted= calories.join()===[...calories].sort().join()
+  console.log(isSorted)
+  expect(isSorted).toBe(true)
+})
+*/
+
+//17.Handle Date picker with Manual Entry
+/*
+import {test,expect,Page} from '@playwright/test'
+test('Handle Date picker with Manual Entry',async({page})=>
+{
+const url=('https://www.tutorialspoint.com/selenium/practice/selenium_automation_practice.php')
+const heading=page.getByRole('heading', { name: 'Selenium - Automation' }) 
+const dob=page.locator('#dob')
+
+await page.goto(url)
+await expect(heading).toHaveText('Selenium - Automation Practice Form')
+await dob.fill('2022-12-31')
+await expect(dob).toHaveValue('2022-12-31')  
+
+})
+*/
+
+
+//18.Handle Date picker with iFrames for any random date
+/*
+import {test,expect,Page} from '@playwright/test'
+test('Handle Date picker with iFrames',async({page})=>
+{
+
+const url=('https://www.globalsqa.com/demo-site/datepicker/#google_vignette')
+const heading=page.getByRole('heading', { name: 'DatePicker' }) 
+
+await page.goto(url)
+await expect(heading).toHaveText('DatePicker')
+
+
+const iFrame=page.frameLocator(".demo-frame.lazyloaded")
+const dateInput=iFrame.locator('#datepicker')
+const dateToSelect=iFrame.locator("a:text('12')")
+
+await dateInput.click()
+//await iFrame.locator("text='12'").click()
+await dateToSelect.click()
+await expect(dateInput).toHaveValue("07/12/2025")
+
+})
+*/
+//19.Handle Date picker with iFrames for current date 
+/*
+import {test,expect,Page} from '@playwright/test'
+test('Handle Date picker with iFrames for current date',async({page})=>
+{
+const url=('https://www.globalsqa.com/demo-site/datepicker/#google_vignette')
+const heading=page.getByRole('heading', { name: 'DatePicker' }) 
+const iFrame=page.frameLocator(".demo-frame.lazyloaded")
+
+await page.goto(url)
+await expect(heading).toHaveText('DatePicker')
+
+const dateInputField=iFrame.locator('#datepicker')
+const date=new Date()
+const currentdate=date.getDate()
+
+console.log(date)
+console.log(currentdate)
+await dateInputField.click()
+const selectCurrentDate=iFrame.locator(`text='${currentdate}'`)
+await selectCurrentDate.click()
+//await expect(selectCurrentDate).toHaveValue('06/30/2025')
+
+//current date:dd/mm/yyyy:06/30/2025
+
+
+const today=new Date()
+const todaysDayValue=today.getDate()
+console.log(`Todays Date is: ${todaysDayValue}`)
+
+const todaysMonthValue=today.getMonth()+1
+console.log(`Todays Month is: ${todaysMonthValue}`)
+
+const todaysYearValue=today.getFullYear()
+console.log(`Todays Year is: ${todaysYearValue}`)
+
+const formattedDate=`${todaysMonthValue}/${todaysDayValue}/${todaysYearValue}`
+const dateSelected=await dateInputField.inputValue()
+
+console.log(dateSelected)
+console.log(formattedDate)
+
+const expectedDate=new Date(formattedDate)
+const actualdate=new Date(dateSelected)
+expect(actualdate.getTime()).toBe(expectedDate.getTime())
+
+await page.waitForTimeout(1000)
+})
+*/
+
+//20.Handle Date picker with iFrames for picking current date, month & year
+
+/*
+import {test,expect,Page} from '@playwright/test'
+test('Handle Date picker with iFrames for current date',async({page})=>
+{
+
+const url=('https://www.globalsqa.com/demo-site/datepicker/#google_vignette')
+const heading=page.getByRole('heading', { name: 'DatePicker' }) 
+const iFrame=page.frameLocator(".demo-frame.lazyloaded")
+
+await page.goto(url)
+await expect(heading).toHaveText('DatePicker')
+
+const dateInputField=iFrame.locator('#datepicker')
+const date=new Date()
+const currentdate=date.getDate()
+
+console.log(date)
+console.log(currentdate)
+await dateInputField.click()
+const selectCurrentDate=iFrame.locator(`text='${currentdate}'`)
+await selectCurrentDate.click()
+//await expect(selectCurrentDate).toHaveValue('06/30/2025')
+
+//current date:dd/mm/yyyy:06/30/2025
+
+
+const today=new Date()
+const todaysDayValue=today.getDate()
+console.log(`Todays Date is: ${todaysDayValue}`)
+
+const todaysMonthValue=today.getMonth()+1
+console.log(`Todays Month is: ${todaysMonthValue}`)
+
+const todaysYearValue=today.getFullYear()
+console.log(`Todays Year is: ${todaysYearValue}`)
+
+const formattedDate=`${todaysMonthValue}/${todaysDayValue}/${todaysYearValue}`
+const dateSelected=await dateInputField.inputValue()
+
+console.log(dateSelected)
+console.log(formattedDate)
+
+const expectedDate=new Date(formattedDate)
+const actualdate=new Date(dateSelected)
+expect(actualdate.getTime()).toBe(expectedDate.getTime())
+
+await page.waitForTimeout(1000)
+})
+*/
+
+
+//21.Handle Date picker with iFrames for desired date, month & year
+/*
+import {test,expect,Page} from '@playwright/test'
+test('Handle Date picker with iFrames for desired date',async({page})=>
+{
+
+const url=('https://www.globalsqa.com/demo-site/datepicker/#google_vignette')
+const heading=page.getByRole('heading', { name: 'DatePicker' }) 
+const iFrame=page.frameLocator(".demo-frame.lazyloaded")
+
+await page.goto(url)
+await expect(heading).toHaveText('DatePicker')
+
+const dateInputField=iFrame.locator('#datepicker')
+const date=new Date()
+//const currentdate=date.getDate()
+
+console.log(date)
+//console.log(currentdate)
+await dateInputField.click()
+
+const targetYear=2026
+const targetMonth="May"
+const targetDate="2"
+
+while(true)
+{
+const displayedYearText=await iFrame.locator(".ui-datepicker-year").textContent()||"0"
+//console.log(displayedYearText)
+const displayedYear=parseInt(displayedYearText)
+//console.log(displayedYear)
+if(displayedYear===targetYear)
+{
+break
+}
+if(displayedYear<targetYear)
+{
+await iFrame.locator(".ui-datepicker-next").click()
+}
+else
+{
+await iFrame.locator(".ui-datepicker-prev").click()
+}
+}
+while(true)
+{
+const displayedMonth=await iFrame.locator(".ui-datepicker-month").textContent()||"0"
+if(displayedMonth===targetMonth)
+{break}
+else
+{await iFrame.locator(".ui-datepicker-next").click()  }
+} 
+await iFrame.locator(`text="${targetDate}"`).click()
+})
+*/
+
+//22.Handle Mouse operations (Single click)
+
+// Single Click, 
+// Dbl Click, 
+// Context Click, 
+// Mouse Hover, 
+// Drag n Drop, 
+// Scrolling with Mouse
+
+/*
+import {test,expect,Page} from '@playwright/test'
+test('Mouse Single Click',async({page})=>{
+
+const url=('https://play1.automationcamp.ir/mouse_events.html')
+const heading=page.getByRole('heading', { name: 'Mouse Click Actions' })
+const mouseClick=page.locator('div #click_area')
+const clickIconVisibleNow=page.locator('span#click_type')
+
+await page.goto(url)
+await expect(heading).toHaveText('Mouse Click Actions')
+await expect(clickIconVisibleNow).not.toBeVisible()
+await page.waitForTimeout(1000)
+
+await mouseClick.click()
+//or await page.click('div #click_area')
+await expect(clickIconVisibleNow).toHaveText("Click")
+
+await page.waitForTimeout(3000)
+})
+*/
+
+//22.Handle Mouse actions like (Right Click)
+
+/*
+import {test,expect,Page} from '@playwright/test'
+test('Mouse RT Click',async({page})=>{
+
+const url=('https://play1.automationcamp.ir/mouse_events.html')
+const heading=page.getByRole('heading', { name: 'Mouse Click Actions' })
+const mouseRightClick=page.locator('div #click_area')
+const clickIconVisibleNow=page.locator('span#click_type')
+
+await page.goto(url)
+await expect(heading).toHaveText('Mouse Click Actions')
+await expect(clickIconVisibleNow).not.toBeVisible()
+await page.waitForTimeout(1000)
+
+await mouseRightClick.click({button:'right'})
+//(or) await page.click('div #click_area',{button:'right'})
+await expect(clickIconVisibleNow).toHaveText("Right-Click")
+
+await page.waitForTimeout(3000)
+})
+*/
+
+
+//23.Handle Mouse actions  (Double Click)
+/*
+
+import {test,expect,Page} from '@playwright/test'
+test('Mouse Dbl Click',async({page})=>{
+
+const url=('https://play1.automationcamp.ir/mouse_events.html')
+const heading=page.getByRole('heading', { name: 'Mouse Click Actions' })
+const mouseDoubleClick=page.locator('div #click_area')
+const clickIconVisibleNow=page.locator('span#click_type')
+
+await page.goto(url)
+await expect(heading).toHaveText('Mouse Click Actions')
+await expect(clickIconVisibleNow).not.toBeVisible()
+await page.waitForTimeout(1000)
+
+await mouseDoubleClick.dblclick()
+//(or) await page.dblclick('div #click_area')
+await expect(clickIconVisibleNow).toHaveText("Double-Click")
+await page.waitForTimeout(3000)
+})
+*/
+
+
+//24.Handle Mouse actions  (Hover Over)
+/*
+
+import {test,expect,Page} from '@playwright/test'
+test('Mouse Hover',async({page})=>{
+const url=('https://play1.automationcamp.ir/mouse_events.html')
+const heading=page.getByRole('heading', { name: 'Mouse Click Actions' })
+const mouseHoverIcon=page.locator('button.dropbtn')
+const clickIconVisibleNow=page.locator('h4#hover_validate')
+
+await page.goto(url)
+await expect(heading).toHaveText('Mouse Click Actions')
+await page.waitForTimeout(1000)
+
+await mouseHoverIcon.hover()
+//(or) await page.hover('div #click_area')
+await page.locator("text='Java'").click()
+await expect(clickIconVisibleNow).toHaveText('Java')
+
+await page.waitForTimeout(3000)
+})
+*/
+
+//25.Handle Mouse actions  (Drag and Drop)
+
+/*
+import {test,expect,Page} from '@playwright/test'
+test('Drag and Drop',async({page})=>{
+
+const url=('https://play1.automationcamp.ir/mouse_events.html')
+const heading=page.getByRole('heading', { name: 'Mouse Click Actions' })
+const mouseDrag=page.locator('#drag_source')
+const mouseDrop=page.locator('#drop_target')
+
+await page.goto(url)
+await expect(heading).toHaveText('Mouse Click Actions')
+await page.waitForTimeout(1000)
+await (mouseDrag).dragTo(mouseDrop)
+//or await page.dragAndDrop("#drag_source","#drop_target")
+
+await expect(page.locator('#drop_target h3')).toHaveText('Drop is successful!')
+await page.waitForTimeout(3000)
+})
+*/
+
+//26.Handle Mouse actions  (Scroll with mouse)
+
+/*
+import {test,expect,Page} from '@playwright/test'
+test('Scroll with mouse',async({page})=>{
+
+const url=('https://play1.automationcamp.ir/mouse_events.html')
+const heading=page.getByRole('heading', { name: 'Mouse Click Actions' })
+const mouseDrag=page.locator('#drag_source')
+const mouseDrop=page.locator('#drop_target')
+const footer=page.locator('div.card-header').filter({hasText:"Drag and Drop"})
+
+await page.goto(url)
+await expect(heading).toHaveText('Mouse Click Actions')
+await page.waitForTimeout(1000)
+
+await page.mouse.wheel(0,400)
+await expect(footer).toContainText('Drag and Drop')
+//await expect(footer).toHaveText(/Drag and Drop/)
+await page.waitForTimeout(3000)
+})
+*/
+
+//27.Handle KeyBoard actions  (Type any text & Press Enter Key)
+//Press Enter, 
+//Typing any text, 
+//Ctrl A, C, V, X, 
+//Shift Key
+
+/*
+import {test,expect,Page} from '@playwright/test'
+test('Keyboard Action -Type any text & Press Enter key',async({page})=>{
+
+const searchBar=page.getByPlaceholder('Search for Products, Brands and More')
+
+await page.goto('https://www.flipkart.com')
+await searchBar.focus()
+await page.keyboard.type("Laptop") 
+await page.keyboard.press("Enter")
+
+})
+
+*/
+
+//28.Handle KeyBoard actions  (Type any text & Delete)
+/*
+import {test,expect,Page} from '@playwright/test'
+test('Keyboard Action -Type any text & Press Backspace',async({page})=>{
+
+const url=('https://www.flipkart.com')
+const searchBar=page.getByPlaceholder('Search for Products, Brands and More')
+
+await page.goto(url)
+await searchBar.focus()
+await page.keyboard.type("Laptop") 
+await page.waitForTimeout(5000)  
+await page.keyboard.press("Backspace")
+
+await page.waitForTimeout(5000)  
+
+})
+*/
+
+//29.Handle KeyBoard actions  (Type any text & Ctrl+A & Delete)
+/*
+import {test,expect,Page} from '@playwright/test'
+test('Keyboard Action -Type any text & Select All & Delete',async({page})=>{
+const url=('https://www.flipkart.com')
+const searchBar=page.getByPlaceholder('Search for Products, Brands and More')
+
+await page.goto(url)
+await searchBar.focus()
+await page.keyboard.type("Laptop") 
+await page.keyboard.press("Control+A")
+await page.waitForTimeout(5000)  
+await page.keyboard.press("Backspace")
+
+await page.waitForTimeout(5000)  
+})
+*/
+
+//30.Handle KeyBoard actions  (Type any text & Ctrl+A & Ctrl+V)
+/*
+import {test,expect,Page} from '@playwright/test'
+test('Keyboard Action -Type any text & Select Copy all & Paste',async({page})=>{
+const url=('https://www.tutorialspoint.com/selenium/practice/selenium_automation_practice.php')
+const firstName=page.getByPlaceholder('First Name')
+const email=page.getByPlaceholder('name@example.com')
+
+await page.goto(url)
+await firstName.focus()
+await page.keyboard.type("Script & Execute") 
+await page.keyboard.press("Control+A")
+await page.waitForTimeout(2000)  
+await page.keyboard.press("Control+C")
+await page.waitForTimeout(2000)  
+await email.focus()
+await page.keyboard.press("Control+V")
+await page.waitForTimeout(2000)  
+})
+*/
+
+
+//31.Handle KeyBoard actions  (Type any text holding Shify Key)
+// page.keyboard.down('Shift) is to press 
+// page.keyboard.up('Shift) is to release 
+
+/*
+import {test,expect,Page} from '@playwright/test'
+test('Keyboard Action -Type any text hold Shift key',async({page})=>{
+const url=('https://www.tutorialspoint.com/selenium/practice/selenium_automation_practice.php')
+const firstName=page.getByPlaceholder('First Name')
+const email=page.getByPlaceholder('name@example.com')
+
+await page.goto(url)
+await firstName.focus()
+await page.waitForTimeout(1000)  
+await page.keyboard.down('Shift')
+await page.keyboard.press('KeyA')
+await page.keyboard.down('Shift')
+await page.keyboard.press('KeyB')
+await page.keyboard.down('Shift')
+await page.keyboard.press('KeyC')
+await page.waitForTimeout(2000)  
+})
+*/
+
+//32.Handle Single File Uploads
+
+//Tag should be Input & type=file must be presnt for single file upload
+//For Multiple Files Attribute multiple must be present for multiple file
+//upload
+
+//Incorporate Built Nodejs Module ,Import path from 'path
+//Create Uploads folder inside test folder & place the files to be uploaded inside Uploads folder
+
+/*
+import {test,expect,Page} from '@playwright/test'
+import path from 'path'
+test('Handle File Uploads',async({page})=>
+{
+const url=('https://testpages.eviltester.com/styled/file-upload-test.html')
+const chooseFileBtn='#fileinput'
+const chooseFileBtnValuebeforeUpload=page.locator('input[name="filename"]')
+
+const singleFileName='One.txt'
+const filePath=path.join(__dirname,'Uploads',singleFileName)
+
+
+await page.goto(url) 
+await expect(chooseFileBtnValuebeforeUpload).toHaveValue('') //i,e No File chosen
+await page.waitForTimeout(5000)
+
+await page.setInputFiles(chooseFileBtn,filePath)
+
+const chooseFileBtnValueafterUpload=await chooseFileBtnValuebeforeUpload.inputValue()
+expect(chooseFileBtnValueafterUpload.endsWith(singleFileName)).toBeTruthy()
+
+await page.waitForTimeout(5000)
+})
+
+*/
+
+//33.Handle Multiple File Uploads
+/*
+import {test,expect,Page,chromium} from '@playwright/test'
+import path from 'path'
+test('Handle Multiple File Uploads with SSL bypass',async({})=>
+{
+const browser = await chromium.launch()
+const context = await browser.newContext({
+ignoreHTTPSErrors: true  // 🚨 Bypasses invalid SSL certs
+})  
+
+const page=await context.newPage()
+
+const url=('https://uitestingplayground.com/upload')
+
+const firstFileName='One.txt'
+const secondFileName='Two.txt'
+const filePath1=path.join(__dirname,'Uploads',firstFileName)
+const filePath2=path.join(__dirname,'Uploads',secondFileName)
+
+await page. goto(url) 
+await expect(page).toHaveTitle(/Upload/i)
+
+await page.waitForTimeout(5000)
+
+const iFrame=page.frameLocator("iframe[src='/static/upload.html']")
+const browseBtn=iFrame.locator('#browse')
+
+const successStatus=iFrame.locator(".success-file")
+await page.waitForTimeout(5000)
+
+await expect(successStatus).not.toBeVisible() 
+await browseBtn.setInputFiles([filePath1,filePath2])
+
+await expect(successStatus).toBeVisible()
+
+await page.waitForTimeout(5000)
+})
+*/
+
+
+//34.Automate a application by Hardcoding Values.
+
+/*
+import {test,expect,Page} from '@playwright/test'
+
+test.beforeEach('Automate app by Hardcoding Values',async({page})=>
+{
+
+const url =('https://opensource-demo.orangehrmlive.com/web/index.php/dashboard/index')
+await page.goto(url)
+await page.getByRole('textbox', { name: 'Username' }).fill('Admin')
+await page.getByRole('textbox', { name: 'Password' }).fill('admin123')
+await page.getByRole('button', { name: 'Login' }).click()
+await page.getByRole('link', { name: 'Time' }).click()
+})
+
+
+test("Add Candidate for Recruitment",async({page})=>{
+await page.getByRole('link', { name: 'Recruitment' }).click()
+await page.getByRole('button', { name: ' Add' }).click()
+await expect(page.getByRole('heading', { name: 'Add Candidate' })).toContainText('Add Candidate')
+await page.getByRole('textbox', { name: 'First Name' }).fill(Test_fname)
+await page.getByRole('textbox', { name: 'Middle Name' }).fill(Test_mname)
+await page.getByRole('textbox', { name: 'Last Name' }).fill(Test_lname)
+await page.getByRole('textbox', { name: 'Type here' }).first().fill(Testemail@abc.com)
+await page.getByRole('button', { name: 'Save' }).click()
+await expect(page.getByRole('heading', { name: 'Application Stage' })).toContainText('Application Stage')
+
+})
+*/
+
+
+//35.Automate a application by reading single object from JSON file
+
+/*
+import {test,expect,Page} from '@playwright/test'
+import logindata from "../testdata/logincred.json"
+test.beforeEach('Read data from JSON',async({page})=>
+{
+const url =('https://opensource-demo.orangehrmlive.com/web/index.php/dashboard/index')
+await page.goto(url)
+await page.getByRole('textbox', { name: 'Username' }).fill(logindata.username)
+await page.getByRole('textbox', { name: 'Password' }).fill(logindata.password)
+await page.getByRole('button', { name: 'Login' }).click()
+await page.getByRole('link', { name: 'Time' }).click()
+})
+test("Add Candidate for Recruitment",async({page})=>{
+await page.getByRole('link', { name: 'Recruitment' }).click()
+await page.getByRole('button', { name: ' Add' }).click()
+await expect(page.getByRole('heading', { name: 'Add Candidate' })).toContainText('Add Candidate')
+await page.getByRole('textbox', { name: 'First Name' }).fill(logindata.fname)
+await page.getByRole('textbox', { name: 'Middle Name' }).fill(logindata.mname)
+await page.getByRole('textbox', { name: 'Last Name' }).fill(logindata.lname)
+await page.getByRole('textbox', { name: 'Type here' }).first().fill(logindata.email)
+await page.getByRole('button', { name: 'Save' }).click()
+await expect(page.getByRole('heading', { name: 'Application Stage' })).toContainText('Application Stage')
+})
+
+*/
+//36.Automate a application by reading Array in JSON file
+/*
+import {test,expect,Page} from '@playwright/test'
+import logindata from "../testdata/logincred.json"
+import testDataArray from "../testdata/testdata.json"
+
+test.beforeEach('Read data from Array in JSON',async({page})=>
+{
+
+const url =('https://opensource-demo.orangehrmlive.com/web/index.php/dashboard/index')
+await page.goto(url)
+await page.getByRole('textbox', { name: 'Username' }).fill(logindata.username)
+await page.getByRole('textbox', { name: 'Password' }).fill(logindata.password)
+await page.getByRole('button', { name: 'Login' }).click()
+await page.getByRole('link', { name: 'Time' }).click()
+})
+
+testDataArray.forEach((userProfileFields)=>{
+//alternatively, for(const userProfileFields of testDataArray){
+
+test(`Add Candidate for Recruitment ${userProfileFields.fname}`,async({page})=>{
+await page.getByRole('link', { name: 'Recruitment' }).click()
+await page.getByRole('button', { name: ' Add' }).click()
+await expect(page.getByRole('heading', { name: 'Add Candidate' })).toContainText('Add Candidate')
+await page.getByRole('textbox', { name: 'First Name' }).fill(userProfileFields.fname)
+await page.getByRole('textbox', { name: 'Middle Name' }).fill(userProfileFields.mname)
+await page.getByRole('textbox', { name: 'Last Name' }).fill(userProfileFields.lname)
+await page.getByRole('textbox', { name: 'Type here' }).first().fill(userProfileFields.email)
+await page.getByRole('button', { name: 'Save' }).click()
+await expect(page.getByRole('heading', { name: 'Application Stage' })).toContainText('Application Stage')
+
+//alternatively, }
+})
+})
+
+*/
